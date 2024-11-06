@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seleção de Formulário</title>
+    <style>
+        /* Estilo básico para a página */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f2f2f2;
+        }
+
+        /* Estilo para o cabeçalho */
+        h1 {
+            color: #6a0dad;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        /* Estilo dos botões de navegação */
+        .menu button {
+            padding: 15px 25px;
+            font-size: 1em;
+            font-weight: bold;
+            color: #ffffff;
+            background-color: #6a0dad;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Efeito hover nos botões */
+        .menu button:hover {
+            background-color: #4b0082;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Escolha o Formulário</h1>
+
+    <!-- Menu com botões para selecionar o formulário GET ou POST -->
+    <div class="menu">
+        <button onclick="location.href='formulario.html'">Formulário GET</button>
+        <button onclick="location.href='formulario-post.html'">Formulário POST</button>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,105 @@
+/* Estilo para o corpo da página */
+body {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    background-color: #f2f2f2; /* Fundo claro, como papel */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+h1 {
+    background-color: #ffffff;
+    color: #1d1b1b;
+    border: 5px solid #6a0dad;
+    padding: 10px 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 20%;
+    box-sizing: border-box;
+    position:fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 1000; /* Garante que o h1 fique sobre os outros elementos */
+    margin: 80px;
+    font-size: 1.2em;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+/* Estilo para o formulário */
+form {
+    width: 350px;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 3px dashed #6a0dad; /* Borda roxa estilo tracejado */
+    border-radius: 10px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3); /* Sombras para efeito de profundidade */
+}
+
+/* Estilo para o campo fieldset */
+fieldset {
+    border: none;
+}
+
+/* Estilo para a legenda */
+legend {
+    font-size: 1.5em;
+    color: #6a0dad;
+    text-align: center;
+    padding: 0 10px;
+}
+
+/* Estilo para os rótulos */
+label {
+    font-size: 1em;
+    color: #333333;
+}
+
+/* Estilo para os campos de entrada de texto */
+input[type="text"],
+input[type="email"],
+input[type="date"] {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 2px solid #6a0dad;
+    border-radius: 5px;
+    background-color: #fefefe;
+    box-sizing: border-box;
+    color: #333333;
+}
+
+/* Estilo para os botões de rádio */
+input[type="radio"] {
+    margin-right: 5px;
+}
+
+/* Estilo para o botão de enviar */
+button[type="submit"],
+button[type="reset"] {
+    background-color: #6a0dad;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+/* Hover nos botões */
+button[type="submit"]:hover,
+button[type="reset"]:hover {
+    background-color: #4b0082;
+}
+
+/* Ajuste no botão de reset */
+button[type="reset"] {
+    background-color: #333333;
+}
+
+button[type="reset"]:hover {
+    background-color: #555555;
+}
