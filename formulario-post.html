@@ -9,14 +9,16 @@
 
 <body>
     <header>
-        <h1>Dados Utilizando Método GET  :P </h1>
+        <h1>Dados Utilizando Método POST  (❁´◡`❁) </h1>
     </header>
-    <form action="semana4_post.php" method="POST">
+    <form id="form" action="semana4_post.php" method="POST">
       <fieldset>
          <legend> Dados Pessoais </legend>
           
           <label for="nome"> Nome: </label>
-          <input type="text" id="nome" name="nome" required><br><br>
+          <input type="text" id="nome" name="nome" required>
+          <small id="nomeErro"></small>
+          <br><br>
 
           <label for="email"> E-mail: </label>
           <input type="email" id="email" name="email" required><br><br>
@@ -43,6 +45,7 @@
       </fieldset>
     </form>
 
+    <script src="validacao.js"></script>
 </body>
 
 </html>
