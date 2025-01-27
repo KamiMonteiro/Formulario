@@ -1,9 +1,9 @@
 
-const nomeEl = document.getElementById("nome");
-const nomeErro = document.getElementById("nomeErro");
+//const nomeEl = document.getElementById("nome");
+//const nomeErro = document.getElementById("nomeErro");
 const form = document.getElementById("form");
 
-nomeEl.addEventListener("input", (ev) => {
+/*nomeEl.addEventListener("input", (ev) => {
     let value = ev.target.value;
 
     if (value.length < 2 || value.length > 100){
@@ -11,7 +11,7 @@ nomeEl.addEventListener("input", (ev) => {
     } else {
         nomeErro.innerText = "";
     }
-});
+})*/
 
 
 form.addEventListener("submit", (e) => {
