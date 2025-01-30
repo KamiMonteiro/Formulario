@@ -2,8 +2,11 @@ const form = document.querySelector('#form');
 // constante que guarda a variável input, relacionada ao que vai ser colocado no campo Nome//
 const nomeInput = document.querySelector('#nome');
 const emailInput = document.getElementById('email');
+const cpfInput = document.getElementById('cpf');
 const nomeError = nomeInput.nextElementSibling; // Seleciona o elemento p de erro
 const emailError = emailInput.nextElementSibling;
+const cpfError = cpfInput.nextElementSibling;
+
 
 // Função para esconder todos os erros inicialmente
 function inicializarErros() {
@@ -94,6 +97,58 @@ function validarEmail(email) {
    };
 }
 
+// Função para validar CPF
+function validarCPF(cpf) {
+   // Remove caracteres não numéricos
+   const cpfLimpo = cpf.replace(/\D/g, '');
+   
+   // Verifica se tem 11 dígitos
+   if (cpfLimpo.length !== 11) {
+       return {
+           valido: false,
+           mensagem: 'O CPF deve ter 11 dígitos.'
+       };
+   }
+   
+   // Verifica se todos os dígitos são iguais
+   if (/^(\d)\1{10}$/.test(cpfLimpo)) {
+       return {
+           valido: false,
+           mensagem: 'CPF inválido.'
+       };
+   }
+   
+   // Calcula primeiro dígito verificador
+   let soma = 0;
+   for (let i = 0; i < 9; i++) {
+       soma += parseInt(cpfLimpo.charAt(i)) * (10 - i);
+   }
+   let resto = 11 - (soma % 11);
+   const digito1 = resto > 9 ? 0 : resto;
+   
+   // Calcula segundo dígito verificador
+   soma = 0;
+   for (let i = 0; i < 10; i++) {
+       soma += parseInt(cpfLimpo.charAt(i)) * (11 - i);
+   }
+   resto = 11 - (soma % 11);
+   const digito2 = resto > 9 ? 0 : resto;
+   
+   // Verifica se os dígitos verificadores estão corretos
+   if (parseInt(cpfLimpo.charAt(9)) !== digito1 || 
+       parseInt(cpfLimpo.charAt(10)) !== digito2) {
+       return {
+           valido: false,
+           mensagem: 'CPF inválido.'
+       };
+   }
+   
+   return {
+       valido: true,
+       mensagem: ''
+   };
+}
+
 
 // Função para mostrar ou esconder mensagem de erro//
 function mostrarErro(elemento, mensagem, mostrar) {
@@ -106,6 +161,12 @@ function mostrarErro(elemento, mensagem, mostrar) {
         elemento.classList.remove('error');
     }
 }
+
+// Eventos para o campo CPF
+cpfInput.addEventListener('input', function() {
+   const resultado = validarCPF(this.value);
+   mostrarErro(cpfError, resultado.mensagem, !resultado.valido);
+});
 
 // Adiciona evento de input para validação em tempo real
 nomeInput.addEventListener('input', function() {
@@ -121,24 +182,27 @@ emailInput.addEventListener('input', function() {
 
 // Adiciona evento de submit ao formulário
 form.addEventListener('submit', function(event) {
-   // Previne o envio do formulário se houver erro
+   // Previne o envio do formulário se houver erro//
    const resultado = validarNome(nomeInput.value);
    const emailResultado = validarEmail(emailInput.value);
+   const cpfResultado = validarCPF(cpfInput.value);
 
    
    // Se houver algum erro, impede o envio do formulário
-   if (!nomeResultado.valido || !emailResultado.valido) {
+   if (!nomeResultado.valido || !emailResultado.valido || !cpfResultado.valido) {
       event.preventDefault();
       
-      // Mostra os erros
       mostrarErro(nomeError, nomeResultado.mensagem, !nomeResultado.valido);
       mostrarErro(emailError, emailResultado.mensagem, !emailResultado.valido);
+      mostrarErro(cpfError, cpfResultado.mensagem, !cpfResultado.valido);
       
       // Foca no primeiro campo com erro
       if (!nomeResultado.valido) {
           nomeInput.focus();
       } else if (!emailResultado.valido) {
           emailInput.focus();
+      } else if (!cpfResultado.valido) {
+          cpfInput.focus();
       }
   }
 });
