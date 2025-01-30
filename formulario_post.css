@@ -77,8 +77,8 @@ input[type="radio"] {
 }
 
 /* Estilo para o botão de enviar */
-button[type="submit"],
-button[type="reset"] {
+button[type="submit"]
+/*button[type="reset"]*/ {
     background-color: #6a0dad;
     color: white;
     border: none;
@@ -90,8 +90,8 @@ button[type="reset"] {
 }
 
 /* Hover nos botões */
-button[type="submit"]:hover,
-button[type="reset"]:hover {
+button[type="submit"]:hover
+/*button[type="reset"]:hover */{
     background-color: #4b0082;
 }
 
