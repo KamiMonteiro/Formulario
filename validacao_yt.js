@@ -6,6 +6,8 @@ const cpfInput = document.getElementById('cpf');
 const nomeError = nomeInput.nextElementSibling; // Seleciona o elemento p de erro
 const emailError = emailInput.nextElementSibling;
 const cpfError = cpfInput.nextElementSibling;
+const sexoInputs = document.querySelectorAll('input[name="sexo"]');
+const sexoError = document.querySelector('input[name="sexo"]').parentElement.querySelector('.error');
 
 
 // Função para esconder todos os erros inicialmente
@@ -180,21 +182,51 @@ emailInput.addEventListener('input', function() {
    mostrarErro(emailError, resultado.mensagem, !resultado.valido);
 });
 
+// Validacao de sexo no formulário//
+function validarSexo() {
+   // Verifica se algum radio button está selecionado
+   const selecionado = Array.from(sexoInputs).some(input => input.checked);
+   
+   if (!selecionado) {
+       return {
+           valido: false,
+           mensagem: 'Por favor, selecione o sexo.'
+       };
+   }
+   
+   return {
+       valido: true,
+       mensagem: ''
+   };
+}
+
+// Adicione os event listeners para os radio buttons
+sexoInputs.forEach(input => {
+   input.addEventListener('change', function() {
+       const resultado = validarSexo();
+       mostrarErro(sexoError, resultado.mensagem, !resultado.valido);
+   });
+});
+
 // Adiciona evento de submit ao formulário
 form.addEventListener('submit', function(event) {
    // Previne o envio do formulário se houver erro//
    const resultado = validarNome(nomeInput.value);
    const emailResultado = validarEmail(emailInput.value);
    const cpfResultado = validarCPF(cpfInput.value);
+   const sexoResultado = validarSexo();
+
 
    
    // Se houver algum erro, impede o envio do formulário
-   if (!nomeResultado.valido || !emailResultado.valido || !cpfResultado.valido) {
+   if (!nomeResultado.valido || !emailResultado.valido || 
+      !cpfResultado.valido || !sexoResultado.valido) {
       event.preventDefault();
       
       mostrarErro(nomeError, nomeResultado.mensagem, !nomeResultado.valido);
       mostrarErro(emailError, emailResultado.mensagem, !emailResultado.valido);
       mostrarErro(cpfError, cpfResultado.mensagem, !cpfResultado.valido);
+      mostrarErro(sexoError, sexoResultado.mensagem, !sexoResultado.valido);
       
       // Foca no primeiro campo com erro
       if (!nomeResultado.valido) {
@@ -203,6 +235,8 @@ form.addEventListener('submit', function(event) {
           emailInput.focus();
       } else if (!cpfResultado.valido) {
           cpfInput.focus();
+      } else if (!sexoResultado.valido) {
+          sexoInputs[0].focus();
       }
   }
 });
