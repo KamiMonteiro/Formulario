@@ -71,6 +71,7 @@ input[type="date"] {
     color: #333333;
 }
 
+
 /* Estilo para os botões de rádio */
 input[type="radio"] {
     margin-right: 5px;
@@ -100,4 +101,15 @@ button[type="reset"] {
 
 button[type="reset"]:hover {
     background-color: #555555;
+}
+
+.error {
+    color: red;
+    font-size: 0.8em;
+    margin-top: 5px;
+    display: block;  /* Esconde por padrão */
+}
+
+.error-hidden {
+    display: none;
 }
