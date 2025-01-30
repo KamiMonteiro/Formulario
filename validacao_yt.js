@@ -3,6 +3,8 @@ const form = document.querySelector('#form');
 const nomeInput = document.querySelector('#nome');
 const emailInput = document.getElementById('email');
 const cpfInput = document.getElementById('cpf');
+const telefoneInput = document.getElementById('telefone');
+const telefoneError = telefoneInput.nextElementSibling;
 const nomeError = nomeInput.nextElementSibling; // Seleciona o elemento p de erro
 const emailError = emailInput.nextElementSibling;
 const cpfError = cpfInput.nextElementSibling;
@@ -208,6 +210,46 @@ sexoInputs.forEach(input => {
    });
 });
 
+// Adicione esta nova função de validação
+function validarTelefone(telefone) {
+   // Remove caracteres não numéricos
+   const telefoneLimpo = telefone.replace(/\D/g, '');
+   
+   if (!telefoneLimpo) {
+       return {
+           valido: false,
+           mensagem: 'O telefone é obrigatório.'
+       };
+   }
+   
+   if (telefoneLimpo.length !== 11) {
+       return {
+           valido: false,
+           mensagem: 'O telefone deve ter 11 dígitos.'
+       };
+   }
+   
+   // Verifica se começa com um DDD válido (2 dígitos)
+   if (!/^[1-9][0-9]/.test(telefoneLimpo)) {
+       return {
+           valido: false,
+           mensagem: 'DDD inválido.'
+       };
+   }
+   
+   return {
+       valido: true,
+       mensagem: ''
+   };
+}
+
+// Adicione o event listener para o telefone
+telefoneInput.addEventListener('input', function() {
+   const resultado = validarTelefone(this.value);
+   mostrarErro(telefoneError, resultado.mensagem, !resultado.valido);
+});
+
+
 // Adiciona evento de submit ao formulário
 form.addEventListener('submit', function(event) {
    // Previne o envio do formulário se houver erro//
@@ -215,18 +257,21 @@ form.addEventListener('submit', function(event) {
    const emailResultado = validarEmail(emailInput.value);
    const cpfResultado = validarCPF(cpfInput.value);
    const sexoResultado = validarSexo();
+   const telefoneResultado = validarTelefone(telefoneInput.value);
 
 
    
    // Se houver algum erro, impede o envio do formulário
    if (!nomeResultado.valido || !emailResultado.valido || 
-      !cpfResultado.valido || !sexoResultado.valido) {
+      !cpfResultado.valido || !sexoResultado.valido || 
+      !telefoneResultado.valido) {
       event.preventDefault();
       
       mostrarErro(nomeError, nomeResultado.mensagem, !nomeResultado.valido);
       mostrarErro(emailError, emailResultado.mensagem, !emailResultado.valido);
       mostrarErro(cpfError, cpfResultado.mensagem, !cpfResultado.valido);
       mostrarErro(sexoError, sexoResultado.mensagem, !sexoResultado.valido);
+      mostrarErro(telefoneError, telefoneResultado.mensagem, !telefoneResultado.valido);
       
       // Foca no primeiro campo com erro
       if (!nomeResultado.valido) {
@@ -237,6 +282,8 @@ form.addEventListener('submit', function(event) {
           cpfInput.focus();
       } else if (!sexoResultado.valido) {
           sexoInputs[0].focus();
+      } else if (!telefoneResultado.valido) {
+          telefoneInput.focus();
       }
   }
 });
