@@ -1,6 +1,6 @@
 const form = document.querySelector('#form');
 // constante que guarda a variável input, relacionada ao que vai ser colocado no campo Nome//
-const nomeInput = document.querySelector('#nome');
+const nomeInput = document.getElementById('nome');
 const emailInput = document.getElementById('email');
 const cpfInput = document.getElementById('cpf');
 const telefoneInput = document.getElementById('telefone');
@@ -9,7 +9,9 @@ const nomeError = nomeInput.nextElementSibling; // Seleciona o elemento p de err
 const emailError = emailInput.nextElementSibling;
 const cpfError = cpfInput.nextElementSibling;
 const sexoInputs = document.querySelectorAll('input[name="sexo"]');
-const sexoError = document.querySelector('input[name="sexo"]').parentElement.querySelector('.error');
+const sexoError = document.getElementById('sexo-error');
+
+console.log("err", sexoError)
 
 
 // Função para esconder todos os erros inicialmente
@@ -253,13 +255,11 @@ telefoneInput.addEventListener('input', function() {
 // Adiciona evento de submit ao formulário
 form.addEventListener('submit', function(event) {
    // Previne o envio do formulário se houver erro//
-   const resultado = validarNome(nomeInput.value);
+   const nomeResultado = validarNome(nomeInput.value);
    const emailResultado = validarEmail(emailInput.value);
    const cpfResultado = validarCPF(cpfInput.value);
    const sexoResultado = validarSexo();
    const telefoneResultado = validarTelefone(telefoneInput.value);
-
-
    
    // Se houver algum erro, impede o envio do formulário
    if (!nomeResultado.valido || !emailResultado.valido || 
